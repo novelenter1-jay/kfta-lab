@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>현장교육연구대회 실습실 — 2026 하계 직무연수</title>
+<style>
+:root{
+  --ink:#0B2D52; --navy:#003478; --gold:#C9A04E; --red:#C8102E;
+  --paper:#F6F7F9; --body:#1A1A1A; --line:#DCDCDC; --note:#E8EEF6; --gray:#8A8A8A;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'김포평화고딕 Regular','Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  background:var(--paper); color:var(--body); line-height:1.6; font-size:15px;
+}
+.serif{font-family:'Nanum Myeongjo','Batang',serif;}
+
+/* ---------- 상단 ---------- */
+header{
+  background:var(--ink); color:#fff; padding:18px 24px;
+  position:sticky; top:0; z-index:50; box-shadow:0 2px 8px rgba(11,45,82,.25);
+}
+.hwrap{max-width:1080px; margin:0 auto; display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+.hbar{width:8px; height:34px; background:var(--gold); flex:none;}
+header h1{font-size:19px; font-weight:800; letter-spacing:-.02em;}
+header .sub{font-size:12px; color:#B9C8DC;}
+.hspace{flex:1;}
+#progressWrap{display:flex; align-items:center; gap:8px; font-size:12px; color:#B9C8DC;}
+#progressBar{width:130px; height:8px; background:#1E4471; border-radius:4px; overflow:hidden;}
+#progressFill{height:100%; width:0%; background:var(--gold); transition:width .4s;}
+
+/* ---------- 탭 ---------- */
+nav{background:#fff; border-bottom:1px solid var(--line); position:sticky; top:70px; z-index:40;}
+.tabs{max-width:1080px; margin:0 auto; display:flex; overflow-x:auto;}
+.tab{
+  flex:none; padding:12px 16px; font-size:13.5px; font-weight:700; color:var(--gray);
+  border:none; background:none; cursor:pointer; border-bottom:3px solid transparent; white-space:nowrap;
+}
+.tab .n{display:inline-block; width:20px; height:20px; line-height:20px; text-align:center;
+  border-radius:50%; background:#E4E8EE; color:var(--gray); font-size:11px; margin-right:6px;}
+.tab.active{color:var(--ink); border-bottom-color:var(--gold);}
+.tab.active .n{background:var(--ink); color:#fff;}
+.tab.done .n{background:var(--gold); color:#fff;}
+
+/* ---------- 본문 공통 ---------- */
+main{max-width:1080px; margin:0 auto; padding:28px 20px 80px;}
+section{display:none;}
+section.active{display:block; animation:fade .3s;}
+@keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+.chip{display:inline-block; background:var(--navy); color:#fff; font-size:11.5px; font-weight:700;
+  padding:3px 10px; border-radius:20px; margin-bottom:10px;}
+h2{font-size:24px; color:var(--ink); font-weight:800; letter-spacing:-.02em; margin-bottom:4px;}
+.lead{color:var(--gray); font-size:14px; margin-bottom:22px;}
+.card{background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:16px;}
+.card h3{font-size:15.5px; color:var(--navy); margin-bottom:10px;}
+.note{background:var(--note); border-left:5px solid var(--red); border-radius:0 8px 8px 0;
+  padding:12px 16px; margin:14px 0; font-size:13.5px;}
+.note b{color:var(--red);}
+label{display:block; font-size:13px; font-weight:700; color:var(--ink); margin:12px 0 5px;}
+input[type=text], textarea{
+  width:100%; padding:10px 12px; border:1.5px solid var(--line); border-radius:8px;
+  font:inherit; font-size:14px; background:#fff;
+}
+input[type=text]:focus, textarea:focus{outline:none; border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,52,120,.1);}
+textarea{resize:vertical; min-height:76px;}
+.hint{font-size:12px; color:var(--gray); margin-top:3px;}
+.btn{
+  display:inline-block; background:var(--navy); color:#fff; border:none; border-radius:8px;
+  padding:10px 18px; font:inherit; font-size:14px; font-weight:700; cursor:pointer; margin-top:12px;
+}
+.btn:hover{background:var(--ink);}
+.btn.gold{background:var(--gold);}
+.btn.ghost{background:#fff; color:var(--navy); border:1.5px solid var(--navy);}
+.btn.sm{padding:6px 12px; font-size:12.5px; margin-top:0;}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media(max-width:800px){.grid2{grid-template-columns:1fr;}}
+.count{font-size:12px; color:var(--gray); text-align:right;}
+.count.ok{color:#2E7D32; font-weight:700;}
+
+/* ---------- 퀴즈 ---------- */
+.q{margin-bottom:18px;}
+.q p{font-weight:700; margin-bottom:8px;}
+.q p .serif{color:var(--ink);}
+.opts{display:grid; gap:8px;}
+.opt{
+  text-align:left; padding:10px 14px; border:1.5px solid var(--line); border-radius:8px;
+  background:#fff; font:inherit; font-size:14px; cursor:pointer; transition:all .15s;
+}
+.opt:hover{border-color:var(--navy);}
+.opt.correct{border-color:#2E7D32; background:#EAF4EB; font-weight:700;}
+.opt.wrong{border-color:var(--red); background:#FBECEE;}
+.expl{display:none; margin-top:8px; font-size:13px; background:var(--paper);
+  border-radius:8px; padding:10px 12px; border:1px dashed var(--line);}
+.expl.show{display:block;}
+.expl b{color:var(--red);}
+
+/* ---------- 제목 공작소 ---------- */
+.patterns{display:grid; gap:8px; margin-top:8px;}
+.pattern{
+  display:flex; align-items:center; gap:10px; background:var(--paper);
+  border:1px solid var(--line); border-radius:8px; padding:10px 14px; font-size:14.5px;
+}
+.pattern .txt{flex:1;}
+.pattern .tag{font-size:11px; font-weight:700; color:#fff; background:var(--gold);
+  border-radius:4px; padding:2px 7px; flex:none;}
+.saved-list{margin-top:10px;}
+.saved{
+  display:flex; align-items:center; gap:10px; padding:8px 12px; border-bottom:1px dashed var(--line); font-size:14px;
+}
+.saved .del{background:none; border:none; color:var(--gray); cursor:pointer; font-size:16px;}
+.checks{display:grid; gap:8px; margin-top:6px;}
+.checks label{display:flex; gap:9px; align-items:flex-start; font-weight:400; font-size:13.5px; margin:0; cursor:pointer;}
+.checks input{margin-top:3px; accent-color:var(--navy); width:16px; height:16px; flex:none;}
+
+/* ---------- 표지 미리보기 (시그니처) ---------- */
+.coverwrap{display:flex; justify-content:center; padding:10px 0;}
+.cover{
+  width:300px; min-height:400px; background:#fff; border:1.5px solid var(--ink); outline:4px double var(--ink);
+  outline-offset:-10px; padding:44px 26px 30px; display:flex; flex-direction:column; text-align:center;
+  box-shadow:0 10px 26px rgba(11,45,82,.18);
+}
+.cover .division{font-size:11px; color:var(--body); margin-bottom:40px;}
+.cover .ctitle{font-size:17px; font-weight:800; color:var(--navy); line-height:1.55; word-break:keep-all;}
+.cover .csub{font-size:11.5px; color:var(--red); margin-top:14px;}
+.cover .cyear{font-size:20px; font-weight:800; margin-top:34px; letter-spacing:.06em;}
+.cover .cfoot{margin-top:auto; font-size:12px; letter-spacing:.35em; padding-top:36px;}
+
+/* ---------- 필요성 미리보기 ---------- */
+.paperview{
+  background:#fff; border:1px solid var(--line); border-radius:4px; padding:26px 28px;
+  box-shadow:0 6px 18px rgba(11,45,82,.08); font-size:13.5px; line-height:1.9;
+}
+.paperview h4{font-size:13px; color:#fff; background:var(--navy); display:inline-block;
+  padding:3px 14px; margin-bottom:14px; border-radius:2px;}
+.paperview p{text-indent:1em; margin-bottom:6px; word-break:keep-all;}
+.paperview .ph{color:#B9B9B9;}
+
+/* ---------- 매핑 ---------- */
+.maprow{display:grid; grid-template-columns:1fr 34px 1fr; gap:8px; align-items:center; margin-bottom:10px;}
+.maprow .arrow{text-align:center; color:var(--gold); font-weight:800; font-size:18px;}
+.gauge{height:12px; background:#E4E8EE; border-radius:6px; overflow:hidden; margin-top:8px;}
+.gauge div{height:100%; background:linear-gradient(90deg,var(--navy),var(--gold)); width:0%; transition:width .4s;}
+
+/* ---------- 검증 ---------- */
+.axisrow{display:flex; gap:8px; margin-bottom:8px; align-items:center;}
+.axisrow .no{flex:none; width:26px; height:26px; border-radius:50%; background:var(--ink); color:#fff;
+  font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+table.items{width:100%; border-collapse:collapse; font-size:13px; margin-top:10px;}
+table.items th{background:var(--ink); color:#fff; padding:8px 10px; font-weight:700; text-align:left;}
+table.items td{border:1px solid var(--line); padding:8px 10px; background:#fff;}
+table.items td.axis{background:var(--paper); font-weight:700; color:var(--navy); white-space:nowrap;}
+
+/* ---------- 자가진단 ---------- */
+.scorebar{display:flex; align-items:center; gap:12px; margin:14px 0;}
+.scorebar .num{font-size:34px; font-weight:800; color:var(--ink); min-width:110px;}
+.scorebar .num small{font-size:14px; color:var(--gray); font-weight:400;}
+.result-actions{display:flex; gap:10px; flex-wrap:wrap;}
+#toast{
+  position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(80px);
+  background:var(--ink); color:#fff; padding:11px 22px; border-radius:30px; font-size:13.5px;
+  transition:transform .3s; z-index:99; box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+#toast.show{transform:translateX(-50%) translateY(0);}
+footer{max-width:1080px; margin:0 auto; padding:20px; font-size:12px; color:var(--gray);
+  border-top:1px solid var(--line); text-align:center;}
+.stepnav{display:flex; justify-content:space-between; margin-top:26px;}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="hbar"></div>
+    <div>
+      <h1>현장교육연구대회 실습실</h1>
+      <div class="sub">2026 하계 직무연수 · 강의를 들으며 내 보고서의 부품을 직접 만듭니다</div>
+    </div>
+    <div class="hspace"></div>
+    <div id="progressWrap">
+      <span id="progressLabel">진행 0%</span>
+      <div id="progressBar"><div id="progressFill"></div></div>
+    </div>
+  </div>
+</header>
+
+<nav><div class="tabs" id="tabs">
+  <button class="tab" data-s="0"><span class="n">0</span>시작</button>
+  <button class="tab" data-s="1"><span class="n">1</span>수상작 해부 퀴즈</button>
+  <button class="tab" data-s="2"><span class="n">2</span>연구제목 공작소</button>
+  <button class="tab" data-s="3"><span class="n">3</span>필요성 원투펀치</button>
+  <button class="tab" data-s="4"><span class="n">4</span>이론 회수 매핑</button>
+  <button class="tab" data-s="5"><span class="n">5</span>검증 설계</button>
+  <button class="tab" data-s="6"><span class="n">6</span>자가진단·제출</button>
+</div></nav>
+
+<main>
+
+<!-- ============ 0 시작 ============ -->
+<section id="s0">
+  <span class="chip">START</span>
+  <h2>오늘 이 화면에서 가져갈 것</h2>
+  <p class="lead">강의는 귀로, 실습은 손으로. 각 단계는 강의 챕터와 연결되어 있습니다.</p>
+  <div class="grid2">
+    <div class="card"><h3>① 오늘의 결과물 4가지</h3>
+      내 연구제목 후보 (CH6) · 연구의 필요성 3단 초안 (CH16) · 이론 회수 매핑표 (CH10) · 사전=사후 검증 문항 골격 (CH15).
+      마지막 단계에서 한 번에 복사해 제출합니다.</div>
+    <div class="card"><h3>② 저장과 제출</h3>
+      입력 내용은 이 노트북 브라우저에 자동 저장됩니다(서버 전송 없음). 새로고침해도 남아 있습니다.
+      마지막 단계의 <b>[전체 결과 복사]</b> 버튼으로 복사한 뒤, 강사가 안내하는 공유 보드(패들렛)에 붙여넣어 주세요.</div>
+  </div>
+  <div class="note"><b>진행 방법</b> — 강사가 "실습 ○번을 열어주세요"라고 안내하면 위 탭에서 해당 번호를 누릅니다. 각 실습은 7~10분입니다.</div>
+  <div class="stepnav"><span></span><button class="btn" onclick="go(1)">실습 1로 이동 →</button></div>
+</section>
+
+<!-- ============ 1 퀴즈 ============ -->
+<section id="s1">
+  <span class="chip">CH06 연계 · 워밍업</span>
+  <h2>수상작 해부 퀴즈</h2>
+  <p class="lead">2026 제70회 두 최고상의 제목 장치를 직접 찾아봅니다. 정답을 고르면 해설이 열립니다.</p>
+  <div class="card" id="quizBox"></div>
+  <div class="note"><b>공통 원칙</b> — 조어는 겉멋이 아니라 '연구 설계의 압축'. 약어·비유가 실제 프로그램 구조와 1:1로 일치할 때만 심사위원을 설득합니다.</div>
+  <div class="stepnav"><button class="btn ghost" onclick="go(0)">←</button><button class="btn" onclick="go(2)">실습 2로 →</button></div>
+</section>
+
+<!-- ============ 2 제목 공작소 ============ -->
+<section id="s2">
+  <span class="chip">CH06 연계</span>
+  <h2>연구제목 공작소</h2>
+  <p class="lead">키워드 3개를 넣으면 기본 패턴이 조립됩니다. 다듬어서 후보로 저장하세요.</p>
+  <div class="grid2">
+    <div>
+      <div class="card">
+        <h3>재료 입력</h3>
+        <label>독립변인 — 프로그램·콘텐츠 이름 (약어/비유 환영)</label>
+        <input type="text" id="tIndep" placeholder="예: 5G 연결 알고e즘, 고슴도치 C.A.Re.">
+        <label>핵심활동 (부제감)</label>
+        <input type="text" id="tAct" placeholder="예: 부활(공부의 활력)노트">
+        <label>종속변인 — 기르고자 하는 것</label>
+        <input type="text" id="tDep" placeholder="예: 수학적 학습동기, 공동체성">
+        <div class="patterns" id="patternOut"></div>
+        <label style="margin-top:16px;">최종 후보 (직접 다듬어 입력)</label>
+        <input type="text" id="tFinal" placeholder="패턴을 참고해 나만의 제목으로">
+        <button class="btn" onclick="saveTitle()">후보로 저장</button>
+        <div class="saved-list" id="titleList"></div>
+      </div>
+      <div class="card">
+        <h3>자가 체크 — 최고상의 5가지 질문</h3>
+        <div class="checks" id="titleChecks">
+          <label><input type="checkbox"> 약어·비유가 실제 프로그램 구조와 1:1로 일치하는가 (조어 = 설계의 압축)</label>
+          <label><input type="checkbox"> 제목만 보고도 콘텐츠·핵심활동이 드러나는가</label>
+          <label><input type="checkbox"> 종속변인이 분과 정체성·당해 대주제와 연결되는가</label>
+          <label><input type="checkbox"> 화제성(이슈어) 또는 친숙함(동음이의·비유)이 있는가</label>
+          <label><input type="checkbox"> 부정적 용어가 없는가</label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>표지 미리보기 — 내 보고서의 얼굴</h3>
+        <div class="coverwrap"><div class="cover">
+          <div class="division serif" id="cvDiv">○○분과(1인)<br>현장교육연구보고서</div>
+          <div class="ctitle serif" id="cvTitle">여기에 제목이<br>조판됩니다</div>
+          <div class="csub serif" id="cvSub">— 핵심활동 부제 —</div>
+          <div class="cyear serif">2027</div>
+          <div class="cfoot serif" id="cvFoot">○○학교 교사 ○○○</div>
+        </div></div>
+        <div class="hint" style="text-align:center;">최종 후보 입력란과 실시간 연동됩니다</div>
+      </div>
+    </div>
+  </div>
+  <div class="stepnav"><button class="btn ghost" onclick="go(1)">←</button><button class="btn" onclick="go(3)">실습 3로 →</button></div>
+</section>
+
+<!-- ============ 3 필요성 ============ -->
+<section id="s3">
+  <span class="chip">CH16 연계</span>
+  <h2>연구의 필요성 — 일화 + 데이터 원투펀치</h2>
+  <p class="lead">대통령상 서론의 3단 구조를 내 교실로 옮겨 씁니다. 미시(장면) → 데이터 → 거시(격상).</p>
+  <div class="grid2">
+    <div>
+      <div class="card">
+        <h3>① 발화·장면 <span style="color:var(--gray);font-weight:400;font-size:12px;">— 학생의 말 한마디, 교실의 한 장면</span></h3>
+        <textarea id="n1" placeholder='예: "선생님, 제가 할 수 있을까요?" — 첫 수업, 한 학생이 조심스럽게 물었다.'></textarea>
+        <div class="count" id="c1">0자 / 권장 80~200자</div>
+        <h3 style="margin-top:16px;">② 데이터 — 그 장면을 받치는 객관 근거</h3>
+        <textarea id="n2" placeholder="예: 학업성취도 평가 결과 전체 430여 명 중 47명(약 11%)이 1수준(미도달)…"></textarea>
+        <div class="count" id="c2">0자 / 권장 80~200자</div>
+        <h3 style="margin-top:16px;">③ 격상 — 개인의 문제 → 구조·환경의 문제, 그리고 해결 방향</h3>
+        <textarea id="n3" placeholder="예: 이는 개인의 불안이 아니라 ○○ 환경 속에서 누적된 학습 경험의 결과다. 따라서 본 연구는…"></textarea>
+        <div class="count" id="c3">0자 / 권장 100~250자</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>서론 조판 미리보기</h3>
+        <div class="paperview serif">
+          <h4>왜 이 연구인가?</h4>
+          <p id="pv1" class="ph">①의 장면이 여기에 놓입니다.</p>
+          <p id="pv2" class="ph">②의 데이터가 장면을 받칩니다.</p>
+          <p id="pv3" class="ph">③에서 문제를 격상하고 연구 방향을 선언합니다.</p>
+        </div>
+        <div class="note" style="margin-bottom:0;"><b>두 최고상 공통 패턴</b> — 국무총리상도, 대통령상도 학생의 목소리로 시작했습니다. 대통령상의 고유성은 발화 '직후' 데이터로 받아친 결합력.</div>
+      </div>
+    </div>
+  </div>
+  <div class="stepnav"><button class="btn ghost" onclick="go(2)">←</button><button class="btn" onclick="go(4)">실습 4로 →</button></div>
+</section>
+
+<!-- ============ 4 이론 회수 ============ -->
+<section id="s4">
+  <span class="chip">CH10 연계</span>
+  <h2>이론 회수 매핑</h2>
+  <p class="lead">이론적 배경의 완성은 '기술(記述)'이 아니라 '회수(回收)'. 선행연구 시사점이 내 프로그램 요소로 하나도 빠짐없이 돌아오는지 점검합니다.</p>
+  <div class="card">
+    <h3>시사점 → 프로그램 요소</h3>
+    <div class="hint" style="margin-bottom:10px;">예시(대통령상): 성공 경험 제공 → 2G 기초잡기 / 자기주도 환경 → 3G 변형문제 도전 / 활동지 재구성 → 부활노트</div>
+    <div id="mapRows"></div>
+    <button class="btn sm ghost" onclick="addMapRow()">+ 행 추가</button>
+    <div class="gauge"><div id="mapGauge"></div></div>
+    <div class="hint" id="mapMsg">시사점과 요소를 짝지어 입력하면 회수율이 올라갑니다.</div>
+  </div>
+  <div class="stepnav"><button class="btn ghost" onclick="go(3)">←</button><button class="btn" onclick="go(5)">실습 5로 →</button></div>
+</section>
+
+<!-- ============ 5 검증 설계 ============ -->
+<section id="s5">
+  <span class="chip">CH15 연계</span>
+  <h2>검증 설계 — 사전 = 사후, 축부터 세우기</h2>
+  <p class="lead">종속변인의 하위요인(축)을 정하면 사전·사후 공용 문항 골격이 생성됩니다. 대통령상은 5축 15문항이었습니다.</p>
+  <div class="card">
+    <h3>내 종속변인의 하위요인 (3~5개)</h3>
+    <div id="axisRows"></div>
+    <button class="btn sm ghost" onclick="addAxis()">+ 축 추가</button>
+  </div>
+  <div class="card">
+    <h3>문항 골격 자동 생성 <span style="font-weight:400;color:var(--gray);font-size:12px;">— 축당 2문항, 사전·사후 동일 사용</span></h3>
+    <table class="items"><thead><tr><th style="width:110px;">축</th><th>문항 골격 (리커트 5점)</th></tr></thead>
+    <tbody id="itemBody"><tr><td colspan="2" style="color:var(--gray);">축을 입력하면 생성됩니다.</td></tr></tbody></table>
+    <div class="note"><b>분산 내장</b> — 이 문항들을 단원(활동)별로 쪼개 본문 페이지 하단에 사전/사후 미니 비교로 배치하면, 검증이 마지막 장에 몰리지 않습니다. t검증 없이 백분율·평균 비교 + 질적 다각화만으로 대통령상이 나왔습니다.</div>
+  </div>
+  <div class="stepnav"><button class="btn ghost" onclick="go(4)">←</button><button class="btn" onclick="go(6)">실습 6으로 →</button></div>
+</section>
+
+<!-- ============ 6 자가진단 ============ -->
+<section id="s6">
+  <span class="chip">마무리</span>
+  <h2>자가진단 & 결과 제출</h2>
+  <p class="lead">오늘 만든 부품을 최고상의 기준으로 점검하고, 한 번에 복사해 공유 보드에 제출합니다.</p>
+  <div class="card">
+    <h3>10문항 자가진단</h3>
+    <div class="checks" id="diagChecks">
+      <label><input type="checkbox"> 제목의 조어가 프로그램 설계를 압축하고 있다</label>
+      <label><input type="checkbox"> 종속변인이 당해 대주제·분과 정체성과 연결된다</label>
+      <label><input type="checkbox"> 필요성이 장면(미시)에서 출발한다</label>
+      <label><input type="checkbox"> 장면 직후 객관 데이터가 받치고 있다</label>
+      <label><input type="checkbox"> 개인 문제를 구조·환경 문제로 격상했다</label>
+      <label><input type="checkbox"> 선행연구 시사점이 프로그램 요소로 회수된다</label>
+      <label><input type="checkbox"> 사전·사후 문항이 완전히 동일하게 설계됐다</label>
+      <label><input type="checkbox"> 문항 축이 종속변인 하위요인과 1:1이다</label>
+      <label><input type="checkbox"> 검증을 본문에 분산 배치할 계획이 있다</label>
+      <label><input type="checkbox"> 연구의 한계를 스스로 명시할 계획이 있다</label>
+    </div>
+    <div class="scorebar">
+      <div class="num"><span id="diagScore">0</span><small> / 10</small></div>
+      <div class="gauge" style="flex:1;"><div id="diagGauge"></div></div>
+    </div>
+    <div class="hint" id="diagMsg"></div>
+  </div>
+  <div class="card">
+    <h3>제출</h3>
+    <label>이름 또는 별칭 (공유 보드 표시용)</label>
+    <input type="text" id="userName" placeholder="예: 초등수학 J교사">
+    <div class="result-actions">
+      <button class="btn gold" onclick="copyAll()">전체 결과 복사</button>
+      <button class="btn ghost" onclick="downloadAll()">텍스트 파일로 저장</button>
+      <button class="btn ghost" style="color:var(--red);border-color:var(--red);" onclick="resetAll()">모두 초기화</button>
+    </div>
+    <div class="hint" style="margin-top:8px;">복사 후 강사가 안내하는 패들렛에 붙여넣어 주세요. 서로의 제목과 필요성을 함께 리뷰합니다.</div>
+  </div>
+  <div class="stepnav"><button class="btn ghost" onclick="go(5)">←</button><span></span></div>
+</section>
+
+</main>
+<footer>2026 하계 직무연수 · 현장교육연구대회 입문편 — 실습 도구 · 입력 내용은 이 브라우저에만 저장됩니다</footer>
+<div id="toast">복사되었습니다</div>
+
+<script>
+"use strict";
+/* ---------- 상태 ---------- */
+const KEY = "kfta2026-lab";
+let S = load();
+function load(){
+  try{ return JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ return {}; }
+}
+function save(){ localStorage.setItem(KEY, JSON.stringify(S)); updateProgress(); }
+S.titles = S.titles || [];
+S.map = S.map && S.map.length ? S.map : [{a:"",b:""},{a:"",b:""},{a:"",b:""}];
+S.axes = S.axes && S.axes.length ? S.axes : ["","",""];
+S.quiz = S.quiz || {};
+S.checksT = S.checksT || [];
+S.checksD = S.checksD || [];
+
+/* ---------- 탭 ---------- */
+const tabs = document.querySelectorAll(".tab");
+function go(n){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
+  tabs.forEach(t=>t.classList.toggle("active", +t.dataset.s===n));
+  window.scrollTo({top:0});
+  S.step=n; save();
+}
+tabs.forEach(t=>t.addEventListener("click", ()=>go(+t.dataset.s)));
+
+/* ---------- 진행률 ---------- */
+function updateProgress(){
+  let done=0, total=6;
+  if(Object.keys(S.quiz).length>=4) done++;
+  if(S.titles.length>0) done++;
+  if((S.n1||"").length>30 && (S.n2||"").length>30 && (S.n3||"").length>30) done++;
+  if(S.map.filter(r=>r.a.trim()&&r.b.trim()).length>=2) done++;
+  if(S.axes.filter(a=>a.trim()).length>=3) done++;
+  if((S.checksD||[]).filter(Boolean).length>=7) done++;
+  const pct=Math.round(done/total*100);
+  document.getElementById("progressFill").style.width=pct+"%";
+  document.getElementById("progressLabel").textContent="진행 "+pct+"%";
+  tabs.forEach(t=>{
+    const n=+t.dataset.s;
+    const flags=[true, Object.keys(S.quiz).length>=4, S.titles.length>0,
+      (S.n1||"").length>30&&(S.n2||"").length>30&&(S.n3||"").length>30,
+      S.map.filter(r=>r.a.trim()&&r.b.trim()).length>=2,
+      S.axes.filter(a=>a.trim()).length>=3,
+      (S.checksD||[]).filter(Boolean).length>=7];
+    t.classList.toggle("done", n>0 && flags[n]);
+  });
+}
+
+/* ---------- 1 퀴즈 ---------- */
+const QUIZ=[
+ {q:"대통령상 「프로젝트 5G 연결 알고◯e즘」의 '5G'는 무엇의 약어일까요?",
+  o:["5세대 이동통신 기술 활용 수업","Ground→Grab→Growth→Goal→Generalize 5단계","5개 학급(Group) 공동 연구","5가지 게임(Game) 활동"],
+  a:1, e:"이슈어 '5G'를 학습동기 5단계 프로그램명으로 <b>재정의</b>했습니다. 화제성과 함축미를 동시에 확보한 장치."},
+ {q:"'알고◯e즘'의 e가 담은 3중 의미가 아닌 것은?",
+  o:["experience(경험)","emotion(정서)","environment(환경)","evaluation(평가)"],
+  a:3, e:"e = 경험·정서·환경. 이 세 축이 <b>설계와 검증까지 관통</b>합니다 — 약어가 곧 연구 설계의 축."},
+ {q:"국무총리상 「고슴도치 C.A.Re.」에서 'S.S.A.C.'가 노린 언어 장치는?",
+  o:["영어 발음의 세련됨","한국어 '싹'과의 동음이의","수학 기호 차용","지역명 활용"],
+  a:1, e:"4개 역량의 약어이자 한국어 <b>'싹'</b>과 동음 — '인성 싹 틔우기'라는 심상을 만들었습니다."},
+ {q:"두 최고상의 '연구의 필요성'이 공통으로 택한 오프닝은?",
+  o:["국가 교육정책 인용","통계 그래프 제시","학생의 발화(목소리)","연구자의 경력 소개"],
+  a:2, e:"둘 다 <b>학생의 목소리</b>로 시작 — 우연이 아닌 패턴. 대통령상은 발화 직후 데이터(11% 미도달)로 받아쳐 미시→거시로 격상했습니다."}
+];
+function renderQuiz(){
+  const box=document.getElementById("quizBox");
+  box.innerHTML="";
+  QUIZ.forEach((it,qi)=>{
+    const d=document.createElement("div"); d.className="q";
+    d.innerHTML="<p>Q"+(qi+1)+". "+it.q+"</p>";
+    const opts=document.createElement("div"); opts.className="opts";
+    it.o.forEach((o,oi)=>{
+      const b=document.createElement("button"); b.className="opt"; b.textContent=(oi+1)+") "+o;
+      const picked=S.quiz[qi];
+      if(picked!==undefined){
+        if(oi===it.a) b.classList.add("correct");
+        else if(oi===picked) b.classList.add("wrong");
+        b.disabled=true;
+      }
+      b.onclick=()=>{ S.quiz[qi]=oi; save(); renderQuiz(); };
+      opts.appendChild(b);
+    });
+    d.appendChild(opts);
+    const ex=document.createElement("div"); ex.className="expl"+(S.quiz[qi]!==undefined?" show":"");
+    ex.innerHTML=(S.quiz[qi]===it.a?"⭕ 정답! ":"❌ 정답은 "+(it.a+1)+"번. ")+it.e;
+    d.appendChild(ex);
+    box.appendChild(d);
+  });
+}
+
+/* ---------- 2 제목 공작소 ---------- */
+const tIndep=document.getElementById("tIndep"), tAct=document.getElementById("tAct"),
+      tDep=document.getElementById("tDep"), tFinal=document.getElementById("tFinal");
+function renderPatterns(){
+  const i=tIndep.value.trim()||"○○ 프로그램", a=tAct.value.trim(), d=tDep.value.trim()||"○○ 역량";
+  const ps=[
+    ["기본", i+"을(를) 통한 "+d+" 향상 전략"],
+    ["기르기", i+"(으)로 "+d+" 기르기"],
+    ["부제형", "「"+i+"」 활동을 통한 "+d+" 향상 전략"+(a?" — "+a+" 활용을 중심으로":"")],
+    ["개발·적용", i+" 개발·적용을 통한 "+d+" 함양"],
+  ];
+  document.getElementById("patternOut").innerHTML =
+    ps.map(p=>'<div class="pattern"><span class="tag">'+p[0]+'</span><span class="txt">'+esc(p[1])+'</span></div>').join("");
+  renderCover();
+}
+function renderCover(){
+  const f=tFinal.value.trim();
+  const i=tIndep.value.trim(), a=tAct.value.trim();
+  document.getElementById("cvTitle").innerHTML = f?esc(f):(i?esc(i)+"…":"여기에 제목이<br>조판됩니다");
+  document.getElementById("cvSub").textContent = a?("— "+a+" 활용을 중심으로 —"):"— 핵심활동 부제 —";
+}
+function saveTitle(){
+  const v=tFinal.value.trim();
+  if(!v){ toast("최종 후보를 입력해 주세요"); return; }
+  S.titles.push(v); save(); renderTitles(); toast("후보 저장!");
+}
+function renderTitles(){
+  document.getElementById("titleList").innerHTML =
+    S.titles.map((t,i)=>'<div class="saved"><span style="flex:1;">'+(i+1)+'. '+esc(t)+
+    '</span><button class="del" onclick="delTitle('+i+')">✕</button></div>').join("");
+}
+function delTitle(i){ S.titles.splice(i,1); save(); renderTitles(); }
+
+/* ---------- 3 필요성 ---------- */
+const N=[["n1","c1","pv1",80,200],["n2","c2","pv2",80,200],["n3","c3","pv3",100,250]];
+function bindNeeds(){
+  N.forEach(([id,cid,pid,min,max])=>{
+    const el=document.getElementById(id);
+    el.value=S[id]||"";
+    el.addEventListener("input",()=>{ S[id]=el.value; save(); renderNeed(id,cid,pid,min,max); });
+    renderNeed(id,cid,pid,min,max);
+  });
+}
+function renderNeed(id,cid,pid,min,max){
+  const v=S[id]||""; const c=document.getElementById(cid);
+  c.textContent=v.length+"자 / 권장 "+min+"~"+max+"자";
+  c.className="count"+(v.length>=min&&v.length<=max*1.5?" ok":"");
+  const pv=document.getElementById(pid);
+  if(v.trim()){ pv.textContent=v; pv.classList.remove("ph"); }
+  else{ pv.classList.add("ph"); pv.textContent={pv1:"①의 장면이 여기에 놓입니다.",pv2:"②의 데이터가 장면을 받칩니다.",pv3:"③에서 문제를 격상하고 연구 방향을 선언합니다."}[pid]; }
+}
+
+/* ---------- 4 매핑 ---------- */
+function renderMap(){
+  const box=document.getElementById("mapRows"); box.innerHTML="";
+  S.map.forEach((r,i)=>{
+    const d=document.createElement("div"); d.className="maprow";
+    d.innerHTML='<input type="text" placeholder="선행연구 시사점 '+(i+1)+'" value="'+esc(r.a)+'">'+
+      '<div class="arrow">→</div>'+
+      '<input type="text" placeholder="내 프로그램 요소" value="'+esc(r.b)+'">';
+    const [ia,,ib]=d.children;
+    ia.addEventListener("input",()=>{ S.map[i].a=ia.value; save(); gauge(); });
+    ib.addEventListener("input",()=>{ S.map[i].b=ib.value; save(); gauge(); });
+    box.appendChild(d);
+  });
+  gauge();
+}
+function addMapRow(){ S.map.push({a:"",b:""}); save(); renderMap(); }
+function gauge(){
+  const filled=S.map.filter(r=>r.a.trim()).length;
+  const done=S.map.filter(r=>r.a.trim()&&r.b.trim()).length;
+  const pct=filled?Math.round(done/filled*100):0;
+  document.getElementById("mapGauge").style.width=pct+"%";
+  document.getElementById("mapMsg").textContent = filled
+    ? "회수율 "+pct+"% — 시사점 "+filled+"개 중 "+done+"개가 프로그램 요소로 회수됨"+(pct===100?" ✓ 완전 회수!":"")
+    : "시사점과 요소를 짝지어 입력하면 회수율이 올라갑니다.";
+}
+
+/* ---------- 5 검증 ---------- */
+function renderAxes(){
+  const box=document.getElementById("axisRows"); box.innerHTML="";
+  S.axes.forEach((a,i)=>{
+    const d=document.createElement("div"); d.className="axisrow";
+    d.innerHTML='<div class="no">'+(i+1)+'</div><input type="text" placeholder="하위요인 (예: 호기심, 자신감, 성취감)" value="'+esc(a)+'">';
+    d.children[1].addEventListener("input",e=>{ S.axes[i]=e.target.value; save(); renderItems(); });
+    box.appendChild(d);
+  });
+  renderItems();
+}
+function addAxis(){ if(S.axes.length>=6){toast("축은 6개까지 권장");return;} S.axes.push(""); save(); renderAxes(); }
+function renderItems(){
+  const body=document.getElementById("itemBody");
+  const axes=S.axes.filter(a=>a.trim());
+  if(!axes.length){ body.innerHTML='<tr><td colspan="2" style="color:var(--gray);">축을 입력하면 생성됩니다.</td></tr>'; return; }
+  let n=0;
+  body.innerHTML = axes.map(a=>{
+    const r1='<tr><td class="axis" rowspan="2">'+esc(a)+'</td><td>'+(++n)+'. 나는 (활동명)을 하면서 '+esc(a)+'이(가) 생겼다.</td></tr>';
+    const r2='<tr><td>'+(++n)+'. 나는 수업 밖에서도 '+esc(a)+'을(를) 느낀 적이 있다.</td></tr>';
+    return r1+r2;
+  }).join("");
+}
+
+/* ---------- 체크박스 저장 ---------- */
+function bindChecks(id,key,after){
+  const boxes=document.querySelectorAll("#"+id+" input");
+  boxes.forEach((b,i)=>{
+    b.checked=!!(S[key]&&S[key][i]);
+    b.addEventListener("change",()=>{
+      S[key]=Array.from(boxes).map(x=>x.checked); save(); if(after)after();
+    });
+  });
+  if(after)after();
+}
+function diag(){
+  const n=(S.checksD||[]).filter(Boolean).length;
+  document.getElementById("diagScore").textContent=n;
+  document.getElementById("diagGauge").style.width=(n*10)+"%";
+  document.getElementById("diagMsg").textContent =
+    n>=9?"훌륭합니다 — 대통령상의 골격을 갖췄습니다. 이제 실행만 남았습니다.":
+    n>=6?"좋습니다 — 미체크 항목이 곧 다음 과제입니다.":
+    n>=1?"시작이 반입니다 — 강의 해당 챕터를 다시 살펴보세요.":"";
+}
+
+/* ---------- 제출 ---------- */
+function buildResult(){
+  const name=(document.getElementById("userName").value||"무기명").trim();
+  const L=[];
+  L.push("■ 현장교육연구대회 실습 결과 — "+name);
+  L.push("─".repeat(30));
+  L.push("[연구제목 후보]");
+  L.push(S.titles.length?S.titles.map((t,i)=>" "+(i+1)+". "+t).join("\n"):" (미작성)");
+  L.push("");
+  L.push("[연구의 필요성 — 원투펀치]");
+  L.push(" ① 장면: "+(S.n1||"(미작성)"));
+  L.push(" ② 데이터: "+(S.n2||"(미작성)"));
+  L.push(" ③ 격상: "+(S.n3||"(미작성)"));
+  L.push("");
+  L.push("[이론 회수 매핑]");
+  const mm=S.map.filter(r=>r.a.trim()||r.b.trim());
+  L.push(mm.length?mm.map(r=>" · "+(r.a||"?")+" → "+(r.b||"?")).join("\n"):" (미작성)");
+  L.push("");
+  L.push("[검증 축] "+(S.axes.filter(a=>a.trim()).join(" / ")||"(미작성)"));
+  L.push("[자가진단] "+((S.checksD||[]).filter(Boolean).length)+" / 10");
+  return L.join("\n");
+}
+function copyAll(){
+  const t=buildResult();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(()=>toast("복사 완료 — 패들렛에 붙여넣어 주세요"),()=>fallbackCopy(t));
+  }else fallbackCopy(t);
+}
+function fallbackCopy(t){
+  const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta);
+  ta.select(); document.execCommand("copy"); ta.remove(); toast("복사 완료");
+}
+function downloadAll(){
+  const blob=new Blob([buildResult()],{type:"text/plain;charset=utf-8"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="연구대회_실습결과.txt"; a.click(); URL.revokeObjectURL(a.href);
+}
+function resetAll(){
+  if(!confirm("모든 입력을 지울까요? 되돌릴 수 없습니다.")) return;
+  localStorage.removeItem(KEY); location.reload();
+}
+
+/* ---------- 유틸 ---------- */
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
+}
+
+/* ---------- 초기화 ---------- */
+["tIndep","tAct","tDep","tFinal"].forEach(id=>{
+  const el=document.getElementById(id);
+  el.value=S[id]||"";
+  el.addEventListener("input",()=>{ S[id]=el.value; save(); renderPatterns(); });
+});
+document.getElementById("userName").value=S.userName||"";
+document.getElementById("userName").addEventListener("input",e=>{ S.userName=e.target.value; save(); });
+
+renderQuiz(); renderPatterns(); renderTitles(); bindNeeds(); renderMap(); renderAxes();
+bindChecks("titleChecks","checksT");
+bindChecks("diagChecks","checksD",diag);
+go(typeof S.step==="number"?S.step:0);
+updateProgress();
+</script>
+</body>
+</html>
