@@ -296,10 +296,10 @@ footer{max-width:1080px; margin:0 auto; padding:20px; font-size:12px; color:var(
         <h3>재료 → 경로 → 조어 <span style="font-weight:400;color:var(--gray);font-size:12px;">— 강의 CH6 '조어의 4가지 경로'와 연동</span></h3>
         <label>⓪ 조어 소재 (C·T·S·L) — 어디서 재료를 캘까</label>
         <div class="pathbtns" id="matBtns">
-          <button class="pathbtn" data-m="C">C 콘텐츠<small>Contents · 교육 내용</small></button>
-          <button class="pathbtn" data-m="T">T 도구<small>Tools · 수업 도구</small></button>
-          <button class="pathbtn" data-m="S">S 전략<small>Strategy · 교수 전략</small></button>
-          <button class="pathbtn" data-m="L">L 목록<small>List · 활동·프로젝트명</small></button>
+          <button class="pathbtn" data-m="C">C 콘텐츠<small>Contents · 주제 내용 함축</small></button>
+          <button class="pathbtn" data-m="T">T 도구<small>Tools · 도구·활동 종합</small></button>
+          <button class="pathbtn" data-m="S">S 전략<small>Strategy · 수업 전략 대표</small></button>
+          <button class="pathbtn" data-m="L">L 목록<small>List · 프로젝트 순차 나열</small></button>
         </div>
         <label>① 콘텐츠 — 무엇으로 (프로그램의 소재)</label>
         <input type="text" id="tContent" placeholder="예: 개념학습노트, 공감 활동, 생태 프로젝트">
@@ -559,19 +559,19 @@ const QUIZ=[
  {q:"두 최고상의 '연구의 필요성'이 공통으로 택한 오프닝은?",
   o:["국가 교육정책 인용","통계 그래프 제시","학생의 발화(목소리)","연구자의 경력 소개"],
   a:2, e:"둘 다 <b>학생의 목소리</b>로 시작 — 우연이 아닌 패턴. 대통령상은 발화 직후 데이터(11% 미도달)로 받아쳐 미시→거시로 격상했습니다."},
- {sect:"PART 2 · C·T·S·L 소재 판별 — 이 조어는 어디서 재료를 캤을까? (강의 CH6 연동)",
-  q:"「공감 스펙(S+PEC) 쌓기 프로그램」 — 조어의 소재는?",
-  o:["C — Contents(콘텐츠)","T — Tools(도구)","S — Strategy(전략)","L — List(목록)"],
-  a:0, e:"프로그램이 다루는 <b>교육 내용(공감)</b> 자체를 약어로 함축 — 콘텐츠형(C)의 전형."},
- {q:"「eco-VERSE 프로그램」 — 조어의 소재는?",
-  o:["C — Contents(콘텐츠)","T — Tools(도구)","S — Strategy(전략)","L — List(목록)"],
-  a:1, e:"메타버스라는 <b>수업 도구</b>를 조어 전면에 — 도구형(T). 생태(eco)와의 합성으로 신선도까지 확보."},
- {q:"「꿀팁 TIP 프로젝트」 — 조어의 소재는?",
-  o:["C — Contents(콘텐츠)","T — Tools(도구)","S — Strategy(전략)","L — List(목록)"],
-  a:2, e:"'팁을 제공한다'는 <b>교수 전략</b>을 친근한 일상어로 — 전략형(S)."},
- {q:"「세상e음 CEO 프로젝트」 — 조어의 소재는?",
-  o:["C — Contents(콘텐츠)","T — Tools(도구)","S — Strategy(전략)","L — List(목록)"],
-  a:3, e:"실천 <b>프로젝트 활동(목록)의 이름</b>을 그대로 조어로 내세워 초두효과 — 목록형(L)."}
+ {sect:"PART 2 · C·T·S·L 소재 판별 — 강의에 안 나온 제목으로 응용해 봅니다 (CH6 연동)",
+  q:"「마음(M.A.U.M) 충전 프로그램」 — 조어의 소재는?",
+  o:["C — 주제 내용 함축","T — 도구·활동 종합","S — 수업 전략 대표","L — 프로젝트 순차 나열"],
+  a:0, e:"프로그램이 다루는 <b>내용(마음) 그 자체</b>를 약어로 함축 — 강의의 '공감 스펙', '통일 4GO'와 같은 C형. '사회정서학습 기반 ○○'처럼 전략을 앞세우면 S에 가까워집니다."},
+ {q:"「교실을 바꾸는 맞춤형 소리 ASMR」 — 조어의 소재는?",
+  o:["C — 주제 내용 함축","T — 도구·활동 종합","S — 수업 전략 대표","L — 프로젝트 순차 나열"],
+  a:1, e:"ASMR이라는 <b>수업 도구</b>를 전면에 — 강의의 'eco-VERSE', '싹SSAC 틔움TIUM'과 같은 T형."},
+ {q:"「질문이(e)음(音) 전략 기반 더·불·어 MUSE 프로젝트」 — 조어의 소재는?",
+  o:["C — 주제 내용 함축","T — 도구·활동 종합","S — 수업 전략 대표","L — 프로젝트 순차 나열"],
+  a:2, e:"제목이 스스로 <b>'전략'을 선언</b> — 강의의 '꿀팁 TIP', 'GROW-마음결'과 같은 S형."},
+ {q:"「[S.P.O.R.T.S.] 프로그램을 통한 학/생/진/로/역/량 기르기」 — 조어의 소재는?",
+  o:["C — 주제 내용 함축","T — 도구·활동 종합","S — 수업 전략 대표","L — 프로젝트 순차 나열"],
+  a:3, e:"요소를 글자별로 <b>순차 나열</b> — 강의의 '세상e음 CEO', '행복이음 S.C.H.O.O.L.'과 같은 L형."}
 ];
 function renderQuiz(){
   const box=document.getElementById("quizBox");
@@ -786,7 +786,7 @@ const TITLES=[
 "T·E·C·H 프로젝트로 행복한 마음 Re-모델링! 쌓아가는 미래역량!",
 "(현)재·미(래) LINK로 미래 사회 핵심 역량 SW.I.T.CH. ON",
 "교실을 바꾸는 맞춤형 소리 ASMR로 행복한 학습공동체 만들기",
-"고슴도치 C.A.Re. 프로그램으로 인성 S.S.A.C. 틔어 공동체성 키우기",
+"고슴도치 C.A.Re. 프로그램으로 인성 S.S.A.C. 틔워 공동체성 키우기",
 "사회정서학습 기반 GROW-마음결 프로그램을 통한 CARE 미래 핵심역량 함양",
 "온(溫)맘다과 프로그램으로 피어나는 과학 교실",
 "TUNE-UP 프로그램을 통해 삶을 조율하는 MAUM 조율사로 성장하기",
